@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="nz.co.greenjersey.inventorytracker.MainMenu">
+
+    <LinearLayout
+        android:layout_width="328dp"
+        android:layout_height="479dp"
+        android:orientation="vertical"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp">
+
+        <TextView
+            android:id="@+id/locationTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Location:"
+            android:textSize="20sp"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/batchAssign"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="batchAssign"
+            android:text="Batch Assign" />
+
+        <Button
+            android:onClick="singleAssign"
+            android:id="@+id/singleAssign"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Single Assign" />
+
+        <Button
+            android:onClick="batchCheckIn"
+            android:id="@+id/batchCheckIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Batch Check In" />
+
+        <Button
+            android:onClick="batchCheckOut"
+            android:id="@+id/batchCheckOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Batch Check Out" />
+
+        <Button
+            android:onClick="singleCheckIn"
+            android:id="@+id/singleCheckIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Single Check In" />
+
+        <Button
+            android:onClick="singleCheckOut"
+            android:id="@+id/singleCheckOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Single Check Out" />
+
+        <Button
+            android:onClick="addMaintenanceNote"
+            android:id="@+id/addMaintenanceNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Maintenance Notes" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
