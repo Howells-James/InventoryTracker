@@ -1,7 +1,9 @@
-package nz.co.greenjersey.inventorytracker;
+package nz.co.greenjersey.inventorytracker.MenuItems;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import nz.co.greenjersey.inventorytracker.R;
 
 public class BatchCheckOut extends AppCompatActivity {
 

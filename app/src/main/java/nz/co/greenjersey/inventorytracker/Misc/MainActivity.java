@@ -1,10 +1,12 @@
-package nz.co.greenjersey.inventorytracker;
+package nz.co.greenjersey.inventorytracker.Misc;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import nz.co.greenjersey.inventorytracker.R;
 
 public class MainActivity extends AppCompatActivity {
 

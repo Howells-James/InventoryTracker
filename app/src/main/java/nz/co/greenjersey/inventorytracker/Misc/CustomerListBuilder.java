@@ -1,12 +1,13 @@
-package nz.co.greenjersey.inventorytracker;
+package nz.co.greenjersey.inventorytracker.Misc;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,23 +24,25 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import static android.R.id;
+import nz.co.greenjersey.inventorytracker.AssignmentViews.CustomerBikeAssign;
+import nz.co.greenjersey.inventorytracker.R;
 
-public class GetInfoFromRezdy extends AsyncTask<String, Void, String>{
+public class CustomerListBuilder extends AsyncTask<String, Void, String>{
     //Holds the reference to which ui were are going to update, pass in the correct ui from each of the menu options
-    Context context;
+    private Context context;
+    //Holds the location of the store
+    private String location;
+    //holds the list of bookings for today
+    private ArrayList<Booking> bookings = new ArrayList<>();
 
-    public GetInfoFromRezdy(Context context){
+    public CustomerListBuilder(Context context, String location){
         //when this class is called it needs to be passed a reference to which class called it, so it knows where to display the ui elements
         this.context = context;
+        this.location = location;
     }
-
-    ArrayList<Booking> bookings = new ArrayList<Booking>();
 
     protected String doInBackground(String... result){
         try{
@@ -51,54 +54,56 @@ public class GetInfoFromRezdy extends AsyncTask<String, Void, String>{
             return null;
         }
     }
-    public void doAfter(String result){
+    private void doAfter(String result){
         try {
             //clear the list everytime TODO figure out a cleaner way of doing this
             bookings.clear();
-            //feed the string into a json object
             JSONObject reader = new JSONObject(result);
-            //get the bookings array out of the json object
             JSONArray bookingsArray = reader.getJSONArray("bookings");
-            //iterate through the bookings array
             for(int i = 0; i < bookingsArray.length(); i++){
-                //get the order object out of the array we are iterating through
                 JSONObject  orderObject = bookingsArray.getJSONObject(i);
-                //get the order id from the order object
                 String orderId = orderObject.getString("orderNumber");
-                //get the customer object out of the json array, the customer object is contained in the order object
                 JSONObject customerObject = orderObject.getJSONObject("customer");
-                //get the fields we want out of the customer object
                 String custFName = customerObject.getString("firstName");
                 String custLName = customerObject.getString("lastName");
-                //create a new booking
                 Booking b = new Booking(custFName, custLName,orderId);
                 bookings.add(b);
             }
-
-
-
-            /*
-            This part creates the ui elements that will hold the customer information
-            */
-            ((Activity)context).runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    //set up a layout
-                    ScrollView sv = (ScrollView) ((Activity)context).findViewById(R.id.scrollView);
-                    LinearLayout layout = (LinearLayout) ((Activity)context).findViewById(R.id.buttonLayout);
-                    layout.setOrientation(LinearLayout.VERTICAL);
-                    for(Booking book: bookings){
-                        Button button = new Button(context);
-                        button.setText(book.fName + " " + book.lName + "\nBooking id : " + book.bookingId);
-
-                        layout.addView(button);
-                    }
-                }
-            });
-
+            //create the buttons
+            createUiObjects();
         }catch(JSONException e){
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Create the buttons and push them to the user interface
+     */
+    private void createUiObjects(){
+        ((Activity)context).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //set up a layout
+                //TODO implement search functionality
+                LinearLayout layout = (LinearLayout) ((Activity)context).findViewById(R.id.buttonLayout);
+                layout.setOrientation(LinearLayout.VERTICAL);
+                for(final Booking book: bookings){
+                    Button button = new Button(context);
+                    button.setText(book.fName + " " + book.lName + "\nBooking id : " + book.bookingId);
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent assignBikes = new Intent(context, CustomerBikeAssign.class);
+                            assignBikes.putExtra("fName", book.fName);
+                            assignBikes.putExtra("lName", book.lName);
+                            assignBikes.putExtra("orderNumber", book.bookingId);
+                            context.startActivity(assignBikes);
+                        }
+                    });
+                    layout.addView(button);
+                }
+            }
+        });
     }
 
     /**
@@ -106,7 +111,7 @@ public class GetInfoFromRezdy extends AsyncTask<String, Void, String>{
      * Solution is to give rezdy yesterdays date
      * @return yesterdays date
      */
-    public String getDate() {
+    private String getDate() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -1);
@@ -115,10 +120,11 @@ public class GetInfoFromRezdy extends AsyncTask<String, Void, String>{
 
 
     private String getDataFromUrl() {
+        //TODO add location to query somehow
         String error = "";
         String date = getDate();
         //TODO exclude shuttle bookings
-        String apiUrl = "https://api.rezdy.com/v1/bookings/?apiKey=&minTourStartTime=" + date + "T00:00:00Z&maxTourStartTime=" + date + "T24:00:00Z";
+        String apiUrl = "https://api.rezdy.com/v1/bookings/?apiKey=b863970054c4425082d507083b4f9a87&minTourStartTime=" + date + "T00:00:00Z&maxTourStartTime=" + date + "T24:00:00Z";
         String result = null;
         int resCode;
         InputStream in;
@@ -156,7 +162,9 @@ public class GetInfoFromRezdy extends AsyncTask<String, Void, String>{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Log.d("result test", result);
         return result;
     }
+
+
+
 }

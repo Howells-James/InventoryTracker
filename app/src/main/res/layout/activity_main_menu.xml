@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="nz.co.greenjersey.inventorytracker.MainMenu">
+    tools:context="nz.co.greenjersey.inventorytracker.Misc.MainMenu">
 
     <LinearLayout
         android:layout_width="328dp"

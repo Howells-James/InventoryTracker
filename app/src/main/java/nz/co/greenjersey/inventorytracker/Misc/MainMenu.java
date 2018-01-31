@@ -1,10 +1,19 @@
-package nz.co.greenjersey.inventorytracker;
+package nz.co.greenjersey.inventorytracker.Misc;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import nz.co.greenjersey.inventorytracker.MenuItems.AddMaintenanceNote;
+import nz.co.greenjersey.inventorytracker.MenuItems.BatchAssign;
+import nz.co.greenjersey.inventorytracker.MenuItems.BatchCheckIn;
+import nz.co.greenjersey.inventorytracker.MenuItems.BatchCheckOut;
+import nz.co.greenjersey.inventorytracker.MenuItems.SingleAssign;
+import nz.co.greenjersey.inventorytracker.MenuItems.SingleCheckIn;
+import nz.co.greenjersey.inventorytracker.MenuItems.SingleCheckOut;
+import nz.co.greenjersey.inventorytracker.R;
 
 public class MainMenu extends AppCompatActivity {
 

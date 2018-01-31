@@ -1,4 +1,4 @@
-package nz.co.greenjersey.inventorytracker;
+package nz.co.greenjersey.inventorytracker.Misc;
 
 /**
  * Created by james on 30/01/2018.

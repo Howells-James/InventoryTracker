@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="nz.co.greenjersey.inventorytracker">
-
     //request permission to use the internet
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <uses-feature android:name="android.hardware.location.gps" />
 
     <application
         android:allowBackup="true"
@@ -13,24 +15,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Misc.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainMenu" />
-        <activity android:name=".BatchAssign" />
-        <activity android:name=".SingleAssign" />
-        <activity android:name=".BatchCheckIn" />
+        <activity android:name=".Misc.MainMenu" />
+        <activity android:name=".MenuItems.BatchAssign" />
+        <activity android:name=".MenuItems.SingleAssign" />
+        <activity android:name=".MenuItems.BatchCheckIn" />
         <activity
-            android:name=".SingleCheckIn"
+            android:name=".MenuItems.SingleCheckIn"
             android:label="@string/title_activity_single_check_in"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".BatchCheckOut" />
-        <activity android:name=".SingleCheckOut" />
-        <activity android:name=".AddMaintenanceNote"></activity>
+        <activity android:name=".MenuItems.BatchCheckOut" />
+        <activity android:name=".MenuItems.SingleCheckOut" />
+        <activity android:name=".MenuItems.AddMaintenanceNote" />
+        <activity android:name=".AssignmentViews.CustomerBikeAssign"></activity>
     </application>
 
 </manifest>
