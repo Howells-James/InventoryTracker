@@ -124,7 +124,7 @@ public class CustomerListBuilder extends AsyncTask<String, Void, String>{
         String error = "";
         String date = getDate();
         //TODO exclude shuttle bookings
-        String apiUrl = "https://api.rezdy.com/v1/bookings/?apiKey=b863970054c4425082d507083b4f9a87&minTourStartTime=" + date + "T00:00:00Z&maxTourStartTime=" + date + "T24:00:00Z";
+        String apiUrl = "https://api.rezdy.com/v1/bookings/?apiKey=&minTourStartTime=" + date + "T00:00:00Z&maxTourStartTime=" + date + "T24:00:00Z";
         String result = null;
         int resCode;
         InputStream in;
