@@ -10,6 +10,9 @@ public class CustomerBikeAssign extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bike_assign);
+        setContentView(R.layout.activity_customer_bike_assign);
     }
+
+
+
 }

@@ -1,8 +1,14 @@
 package nz.co.greenjersey.inventorytracker.Misc;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,17 +25,59 @@ public class MainMenu extends AppCompatActivity {
 
     //the location of the store
     String location;
+    TextView locationText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-        Intent intent = getIntent();
-        location = intent.getExtras().getString("location");
-        TextView locationText;
         locationText = (TextView)findViewById(R.id.locationTextView);
+        String location = "Martinborough"; // set as default
         locationText.setText("Location: " + location);
     }
+
+    /**
+     * Creates the menu
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater  inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu_options_menu, menu);
+        return true;
+    }
+
+    /**
+     * Called when an item is selected in the menu
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        //there's only one item at the moment, but may as well have this in a switch to make it easy in the future
+        switch (item.getItemId()){
+            case R.id.changeLocation :
+                final CharSequence[] locations = {"Martinborough", "Petone"};
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.setTitle("Choose a location");
+                alert.setSingleChoiceItems(locations, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        location = locations[which].toString();
+                        locationText.setText("Location: " + location);
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog alertD = alert.create();
+                alertD.show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     public void batchAssign(View view){
         Intent batchAssignIntent = new Intent(this, BatchAssign.class);

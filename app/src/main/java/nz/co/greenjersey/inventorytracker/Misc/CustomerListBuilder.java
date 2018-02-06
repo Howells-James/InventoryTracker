@@ -3,6 +3,7 @@ package nz.co.greenjersey.inventorytracker.Misc;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -24,6 +27,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Scanner;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -124,7 +128,7 @@ public class CustomerListBuilder extends AsyncTask<String, Void, String>{
         String error = "";
         String date = getDate();
         //TODO exclude shuttle bookings
-        String apiUrl = "https://api.rezdy.com/v1/bookings/?apiKey=&minTourStartTime=" + date + "T00:00:00Z&maxTourStartTime=" + date + "T24:00:00Z";
+        String apiUrl = "https://api.rezdy.com/v1/bookings/?apiKey=faa378d7d81b466198cda2fa6fccac33&minTourStartTime=" + date + "T00:00:00Z&maxTourStartTime=" + date + "T24:00:00Z";
         String result = null;
         int resCode;
         InputStream in;
