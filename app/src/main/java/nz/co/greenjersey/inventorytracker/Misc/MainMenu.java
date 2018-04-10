@@ -5,20 +5,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import nz.co.greenjersey.inventorytracker.MenuItems.AddBike;
 import nz.co.greenjersey.inventorytracker.MenuItems.AddMaintenanceNote;
 import nz.co.greenjersey.inventorytracker.MenuItems.BatchAssign;
 import nz.co.greenjersey.inventorytracker.MenuItems.BatchCheckIn;
 import nz.co.greenjersey.inventorytracker.MenuItems.BatchCheckOut;
-import nz.co.greenjersey.inventorytracker.MenuItems.SingleAssign;
-import nz.co.greenjersey.inventorytracker.MenuItems.SingleCheckIn;
-import nz.co.greenjersey.inventorytracker.MenuItems.SingleCheckOut;
 import nz.co.greenjersey.inventorytracker.R;
 
 public class MainMenu extends AppCompatActivity {
@@ -73,6 +70,11 @@ public class MainMenu extends AppCompatActivity {
                 AlertDialog alertD = alert.create();
                 alertD.show();
                 return true;
+
+            case R.id.addBikeDescription :
+            Intent addBikeIntent = new Intent(this, AddBikeDescription.class);
+            startActivity(addBikeIntent);
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -83,12 +85,6 @@ public class MainMenu extends AppCompatActivity {
         Intent batchAssignIntent = new Intent(this, BatchAssign.class);
         batchAssignIntent.putExtra("location", location);
         startActivity(batchAssignIntent);
-    }
-
-    public void singleAssign (View view){
-        Intent singleAssignIntent = new Intent(this, SingleAssign.class);
-        singleAssignIntent.putExtra("location", location);
-        startActivity(singleAssignIntent);
     }
 
     public void batchCheckIn (View view){
@@ -103,21 +99,15 @@ public class MainMenu extends AppCompatActivity {
         startActivity(batchCheckOutIntent);
     }
 
-    public void singleCheckIn(View view){
-        Intent singleCheckInIntent = new Intent(this, SingleCheckIn.class);
-        singleCheckInIntent.putExtra("location", location);
-        startActivity(singleCheckInIntent);
-    }
-
-    public void singleCheckOut(View view){
-        Intent singleCheckOutIntent = new Intent(this, SingleCheckOut.class);
-        singleCheckOutIntent.putExtra("location", location);
-        startActivity(singleCheckOutIntent);
-    }
-
     public void addMaintenanceNote(View view) {
         Intent addMaintenanceNoteIntent = new Intent(this, AddMaintenanceNote.class);
         addMaintenanceNoteIntent.putExtra("location", location);
         startActivity(addMaintenanceNoteIntent);
+    }
+
+    public void addBike(View view){
+        Intent addBikeIntent = new Intent(this, AddBike.class);
+        addBikeIntent.putExtra("location", location);
+        startActivity(addBikeIntent);
     }
 }

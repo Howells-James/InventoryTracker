@@ -8,5 +8,9 @@
         android:id="@+id/changeLocation"
         android:title="Change Location"
         />
+    <item
+        android:id="@+id/addBikeDescription"
+        android:title="Add Bike Type"
+        />
 
 </menu>

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "260662449341",
+    "firebase_url": "https://inventorytracker-e5677.firebaseio.com",
+    "project_id": "inventorytracker-e5677",
+    "storage_bucket": "inventorytracker-e5677.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:260662449341:android:f3b81a714311d390",
+        "android_client_info": {
+          "package_name": "nz.co.greenjersey.inventorytracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "260662449341-voq0fjfo0gpovh3oh6l41dnvq9ug41ae.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nz.co.greenjersey.inventorytracker",
+            "certificate_hash": "ab133347800f7791012cc0ee420d7a6b4226dcb9"
+          }
+        },
+        {
+          "client_id": "260662449341-k9hvf287sbqb4l8gpc2itmbq63mcp65q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoVw-7hwNLOYKw62Aj3nU7M76Cnfb4EF4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "260662449341-k9hvf287sbqb4l8gpc2itmbq63mcp65q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

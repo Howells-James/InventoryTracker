@@ -32,42 +32,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="batchAssign"
-            android:text="Batch Assign" />
-
-        <Button
-            android:onClick="singleAssign"
-            android:id="@+id/singleAssign"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Single Assign" />
+            android:text="Assign Bikes To Customer" />
 
         <Button
             android:onClick="batchCheckIn"
             android:id="@+id/batchCheckIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Batch Check In" />
+            android:text="Check Bikes into Location" />
 
         <Button
             android:onClick="batchCheckOut"
             android:id="@+id/batchCheckOut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Batch Check Out" />
-
-        <Button
-            android:onClick="singleCheckIn"
-            android:id="@+id/singleCheckIn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Single Check In" />
-
-        <Button
-            android:onClick="singleCheckOut"
-            android:id="@+id/singleCheckOut"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Single Check Out" />
+            android:text="Check Bikes out of location" />
 
         <Button
             android:onClick="addMaintenanceNote"
@@ -75,5 +54,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Add Maintenance Notes" />
+
+        <Button
+            android:onClick="addBike"
+            android:id="@+id/addBike"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Bike To Database" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
