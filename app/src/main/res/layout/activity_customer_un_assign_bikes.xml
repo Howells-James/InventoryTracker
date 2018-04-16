@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="nz.co.greenjersey.inventorytracker.MenuItems.BatchCheckIn">
+    tools:context="nz.co.greenjersey.inventorytracker.AssignmentViews.CustomerUnAssignBikes">
 
     <ScrollView
         android:layout_width="343dp"
@@ -37,10 +37,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/topText"
+            android:id="@+id/cusName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Please scan bike to check them in"
+            android:text=""
             android:textSize="18sp" />
     </LinearLayout>
 

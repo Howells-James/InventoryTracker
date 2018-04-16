@@ -9,7 +9,6 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +19,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,29 +29,28 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Scanner;
 
-import nz.co.greenjersey.inventorytracker.Misc.Bike;
-import nz.co.greenjersey.inventorytracker.Misc.BikeInformation;
+import nz.co.greenjersey.inventorytracker.Objects.Bike;
+import nz.co.greenjersey.inventorytracker.Objects.BikeDescription;
 import nz.co.greenjersey.inventorytracker.R;
 
 
 
 public class AddBike extends AppCompatActivity {
-    ArrayList<BikeInformation> bikeTypes = new ArrayList<>();
+    ArrayList<BikeDescription> bikeTypes = new ArrayList<>();
     NfcAdapter mNfcAdapter;
     Long idNumber = 0l;
     boolean isScanned;
+    String location;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_bike);
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         isScanned = false;
-
+        Intent intent = getIntent();
+        this.location = intent.getExtras().getString("location");
         String idNum;
 
         if(mNfcAdapter == null){
@@ -72,8 +69,8 @@ public class AddBike extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                for(DataSnapshot dss : dataSnapshot.getChildren()){
-                   BikeInformation bikeInformation = dss.getValue(BikeInformation.class);
-                   bikeTypes.add(bikeInformation);
+                   BikeDescription bikeDescription = dss.getValue(BikeDescription.class);
+                   bikeTypes.add(bikeDescription);
                }
             }
             @Override
@@ -104,9 +101,12 @@ public class AddBike extends AppCompatActivity {
                 button.setText(String.valueOf(idNumber));
                 layout.addView(button);
                 final RadioGroup rg = buildRadioList(layout);
-                final EditText bikeIdNum = new EditText(this);
-                bikeIdNum.setHint("Enter Bike Serial Number");
-                layout.addView(bikeIdNum);
+                final EditText serialNumber = new EditText(this);
+                serialNumber.setHint("Enter Bike Serial Number");
+                layout.addView(serialNumber);
+                final EditText gjStickNo = new EditText(this);
+                gjStickNo.setHint("Enter sticker number");
+                layout.addView(gjStickNo);
 
                 Button okButton = new Button(this);
                 okButton.setText("Add Bike");
@@ -114,11 +114,11 @@ public class AddBike extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        DatabaseReference myRef = database.getReference("Bikes");
-                        String idnumString = String.valueOf(idNumber);
+                        //String idnumString = String.valueOf(idNumber);
                         DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
                         Date date = new Date();
-                        String serialNum = bikeIdNum.getText().toString();
+                        String serialNum = serialNumber.getText().toString();
+                        String gjStick = gjStickNo.getText().toString();
                         int id = rg.getCheckedRadioButtonId();
                         String color = "";
                         String brand = "";
@@ -131,10 +131,11 @@ public class AddBike extends AppCompatActivity {
                             color = all.get(2).trim();
                         }
 
-                       if(idnumString != null && date != null && serialNum.length() > 4 && brand != "" && color != "" && desc != "") {
-                            Bike bike = new Bike(idnumString, date, serialNum,  brand, color, desc);
-                           DatabaseReference myNewRef = database.getReference().child("Green Jersey Bikes");
-                           myNewRef.push().setValue(bike);
+
+                       if(idNumber != null && date != null && serialNum.length() > 4 && brand != "" && color != "" && desc != "") {
+                            Bike bike = new Bike(idNumber, date, serialNum,  brand, color, desc, location, false, 1, "", gjStick, new ArrayList<String>());
+                           DatabaseReference myNewRef = database.getReference().child("Green Jersey Bikes").child(String.valueOf(idNumber));
+                           myNewRef.setValue(bike);
                            finish();
                         }
                         else{
@@ -192,7 +193,7 @@ public class AddBike extends AppCompatActivity {
         ScrollView descriptionMenu = new ScrollView(this);
         RadioGroup radioGroup = new RadioGroup(this);
         int i = 150;
-        for(BikeInformation b : bikeTypes){
+        for(BikeDescription b : bikeTypes){
             RadioButton but = new RadioButton(this);
             but.setId(i);
             but.setText(b.getBrand() + " " + b.getDesc() + " " + b.getColor());

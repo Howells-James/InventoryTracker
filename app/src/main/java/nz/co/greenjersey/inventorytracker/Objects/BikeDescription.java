@@ -1,10 +1,10 @@
-package nz.co.greenjersey.inventorytracker.Misc;
+package nz.co.greenjersey.inventorytracker.Objects;
 
 /**
  * Created by james on 10/04/2018.
  */
 
-public class BikeInformation {
+public class BikeDescription {
 
     public void setBrand(String brand) {
         this.brand = brand;
@@ -23,9 +23,9 @@ public class BikeInformation {
 
     private String desc;
 
- private BikeInformation(){}
+ private BikeDescription(){}
 
- public BikeInformation(String desc, String col, String brand){
+ public BikeDescription(String desc, String col, String brand){
      this.desc = desc;
      this.color = col;
      this.brand = brand;

@@ -12,5 +12,13 @@
         android:id="@+id/addBikeDescription"
         android:title="Add Bike Type"
         />
+    <item
+        android:id="@+id/roundUp"
+        android:title="Round Up"
+        />
+    <item
+        android:id="@+id/addNoteType"
+        android:title="Add Maintenance note type"
+        />
 
 </menu>

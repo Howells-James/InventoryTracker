@@ -15,7 +15,7 @@ import nz.co.greenjersey.inventorytracker.MenuItems.AddBike;
 import nz.co.greenjersey.inventorytracker.MenuItems.AddMaintenanceNote;
 import nz.co.greenjersey.inventorytracker.MenuItems.BatchAssign;
 import nz.co.greenjersey.inventorytracker.MenuItems.BatchCheckIn;
-import nz.co.greenjersey.inventorytracker.MenuItems.BatchCheckOut;
+import nz.co.greenjersey.inventorytracker.MenuItems.RemoveBike;
 import nz.co.greenjersey.inventorytracker.R;
 
 public class MainMenu extends AppCompatActivity {
@@ -30,7 +30,7 @@ public class MainMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         locationText = (TextView)findViewById(R.id.locationTextView);
-        String location = "Martinborough"; // set as default
+        location = "Martinborough"; // set as default
         locationText.setText("Location: " + location);
     }
 
@@ -53,7 +53,7 @@ public class MainMenu extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        //there's only one item at the moment, but may as well have this in a switch to make it easy in the future
+
         switch (item.getItemId()){
             case R.id.changeLocation :
                 final CharSequence[] locations = {"Martinborough", "Petone"};
@@ -72,12 +72,24 @@ public class MainMenu extends AppCompatActivity {
                 return true;
 
             case R.id.addBikeDescription :
-            Intent addBikeIntent = new Intent(this, AddBikeDescription.class);
-            startActivity(addBikeIntent);
+                Intent addBikeIntent = new Intent(this, AddBikeDescription.class);
+                startActivity(addBikeIntent);
+                return true;
+
+            case R.id.roundUp :
+                Intent intent = new Intent(this, RoundUp.class);
+                startActivity(intent);
+                return true;
+
+            case R.id.addNoteType:
+                Intent addNoteTypeIntent = new Intent(this, AddNoteType.class);
+                startActivity(addNoteTypeIntent);
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
+
     }
 
 
@@ -93,12 +105,6 @@ public class MainMenu extends AppCompatActivity {
         startActivity(batchCheckInIntent);
     }
 
-    public void batchCheckOut (View view){
-        Intent batchCheckOutIntent = new Intent(this, BatchCheckOut.class);
-        batchCheckOutIntent.putExtra("location", location);
-        startActivity(batchCheckOutIntent);
-    }
-
     public void addMaintenanceNote(View view) {
         Intent addMaintenanceNoteIntent = new Intent(this, AddMaintenanceNote.class);
         addMaintenanceNoteIntent.putExtra("location", location);
@@ -109,5 +115,11 @@ public class MainMenu extends AppCompatActivity {
         Intent addBikeIntent = new Intent(this, AddBike.class);
         addBikeIntent.putExtra("location", location);
         startActivity(addBikeIntent);
+    }
+
+    public void removeBike(View view){
+        Intent removeBikeIntent = new Intent(this, RemoveBike.class);
+        removeBikeIntent.putExtra("location", location);
+        startActivity(removeBikeIntent);
     }
 }

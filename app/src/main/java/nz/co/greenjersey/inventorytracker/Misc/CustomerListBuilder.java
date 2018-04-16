@@ -3,20 +3,24 @@ package nz.co.greenjersey.inventorytracker.Misc;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -27,11 +31,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Scanner;
 
 import javax.net.ssl.HttpsURLConnection;
 
 import nz.co.greenjersey.inventorytracker.AssignmentViews.CustomerBikeAssign;
+import nz.co.greenjersey.inventorytracker.AssignmentViews.CustomerUnAssignBikes;
+import nz.co.greenjersey.inventorytracker.MenuItems.RemoveBike;
+import nz.co.greenjersey.inventorytracker.Objects.Booking;
 import nz.co.greenjersey.inventorytracker.R;
 
 public class CustomerListBuilder extends AsyncTask<String, Void, String>{
@@ -39,13 +45,15 @@ public class CustomerListBuilder extends AsyncTask<String, Void, String>{
     private Context context;
     //Holds the location of the store
     private String location;
+    private String callingClass;
     //holds the list of bookings for today
     private ArrayList<Booking> bookings = new ArrayList<>();
 
-    public CustomerListBuilder(Context context, String location){
+    public CustomerListBuilder(Context context, String location, String callingClass){
         //when this class is called it needs to be passed a reference to which class called it, so it knows where to display the ui elements
         this.context = context;
         this.location = location;
+        this.callingClass = callingClass;
     }
 
     protected String doInBackground(String... result){
@@ -89,25 +97,60 @@ public class CustomerListBuilder extends AsyncTask<String, Void, String>{
             public void run() {
                 //set up a layout
                 //TODO implement search functionality
-                LinearLayout layout = (LinearLayout) ((Activity)context).findViewById(R.id.buttonLayout);
+                final LinearLayout layout = (LinearLayout) ((Activity) context).findViewById(R.id.buttonLayout);
                 layout.setOrientation(LinearLayout.VERTICAL);
-                for(final Booking book: bookings){
-                    Button button = new Button(context);
-                    button.setText(book.fName + " " + book.lName + "\nBooking id : " + book.bookingId);
-                    button.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent assignBikes = new Intent(context, CustomerBikeAssign.class);
-                            assignBikes.putExtra("fName", book.fName);
-                            assignBikes.putExtra("lName", book.lName);
-                            assignBikes.putExtra("orderNumber", book.bookingId);
-                            context.startActivity(assignBikes);
-                        }
-                    });
-                    layout.addView(button);
+                for (final Booking book : bookings) {
+                    if (callingClass.equals("batchAssign")) {
+                        Button button = new Button(context);
+                        button.setText(book.fName + " " + book.lName + "\nBooking id : " + book.bookingId);
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent assignBikes = new Intent(context, CustomerBikeAssign.class);
+                                assignBikes.putExtra("fName", book.fName);
+                                assignBikes.putExtra("lName", book.lName);
+                                assignBikes.putExtra("orderNumber", book.bookingId);
+                                assignBikes.putExtra("Location", location);
+                                context.startActivity(assignBikes);
+                            }
+                        });
+                        layout.addView(button);
+                    }
+                    else if (callingClass.equals("removeBike")) {
+                        Log.d("test", "test");
+                        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        final String date = String.valueOf(android.text.format.DateFormat.format("yyy-MM-dd", new java.util.Date()));
+                        final DatabaseReference myRef = database.getReference().child("Green Jersey Customers").child(date);
+                        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.child(book.bookingId).exists()) {
+                                    Button button = new Button(context);
+                                    button.setText(book.fName + " " + book.lName + "\nBooking id : " + book.bookingId);
+                                    button.setOnClickListener(new View.OnClickListener() {
+                                    Intent removeBikes = new Intent(context, CustomerUnAssignBikes.class);
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent assignBikes = new Intent(context, CustomerUnAssignBikes.class);
+                                            assignBikes.putExtra("fName", book.fName);
+                                            assignBikes.putExtra("lName", book.lName);
+                                            assignBikes.putExtra("orderNumber", book.bookingId);
+                                            assignBikes.putExtra("Location", location);
+                                            context.startActivity(assignBikes);
+                                        }
+
+                                    });
+                                    layout.addView(button);
+                                }
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {}
+                        });
+                    }
                 }
             }
         });
+
     }
 
     /**
@@ -128,7 +171,7 @@ public class CustomerListBuilder extends AsyncTask<String, Void, String>{
         String error = "";
         String date = getDate();
         //TODO exclude shuttle bookings
-        String apiUrl = "https://api.rezdy.com/v1/bookings/?apiKey=&minTourStartTime=" + date + "T00:00:00Z&maxTourStartTime=" + date + "T24:00:00Z";
+        String apiUrl = "https://api.rezdy.com/v1/bookings/?apiKey=e53f787958f0497a9e62f3cb6109cef8&minTourStartTime=" + date + "T00:00:00Z&maxTourStartTime=" + date + "T24:00:00Z";
         String result = null;
         int resCode;
         InputStream in;

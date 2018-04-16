@@ -39,14 +39,7 @@
             android:id="@+id/batchCheckIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Check Bikes into Location" />
-
-        <Button
-            android:onClick="batchCheckOut"
-            android:id="@+id/batchCheckOut"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Check Bikes out of location" />
+            android:text="Check Bikes in" />
 
         <Button
             android:onClick="addMaintenanceNote"
@@ -61,5 +54,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Add Bike To Database" />
+
+        <Button
+            android:id="@+id/removeBikeFromOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="removeBike"
+            android:text="Remove Bikes From Customer Order"
+            android:textColor="@android:color/holo_red_dark" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

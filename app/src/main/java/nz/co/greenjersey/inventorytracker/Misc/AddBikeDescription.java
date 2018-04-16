@@ -8,6 +8,7 @@ import android.widget.EditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import nz.co.greenjersey.inventorytracker.Objects.BikeDescription;
 import nz.co.greenjersey.inventorytracker.R;
 
 public class AddBikeDescription extends AppCompatActivity {
@@ -32,7 +33,7 @@ public class AddBikeDescription extends AppCompatActivity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Bike Descriptions");
-        BikeInformation b = new BikeInformation(desc + "  ", col + "  ", brand+ "  ");
+        BikeDescription b = new BikeDescription(desc + "  ", col + "  ", brand+ "  ");
 
         myRef.push().setValue(b);
 
