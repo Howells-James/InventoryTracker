@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -48,6 +49,7 @@ public class CustomerListBuilder extends AsyncTask<String, Void, String>{
     private String callingClass;
     //holds the list of bookings for today
     private ArrayList<Booking> bookings = new ArrayList<>();
+    private ProgressBar spinner;
 
     public CustomerListBuilder(Context context, String location, String callingClass){
         //when this class is called it needs to be passed a reference to which class called it, so it knows where to display the ui elements
@@ -115,6 +117,8 @@ public class CustomerListBuilder extends AsyncTask<String, Void, String>{
                             }
                         });
                         layout.addView(button);
+                        spinner = (ProgressBar) ((Activity) context).findViewById(R.id.progressBar2);
+                        spinner.setVisibility(View.GONE);
                     }
                     else if (callingClass.equals("removeBike")) {
                         Log.d("test", "test");
@@ -141,6 +145,8 @@ public class CustomerListBuilder extends AsyncTask<String, Void, String>{
 
                                     });
                                     layout.addView(button);
+                                    spinner = (ProgressBar) ((Activity) context).findViewById(R.id.progressBar2);
+                                    spinner.setVisibility(View.GONE);
                                 }
                             }
                             @Override
@@ -171,7 +177,7 @@ public class CustomerListBuilder extends AsyncTask<String, Void, String>{
         String error = "";
         String date = getDate();
         //TODO exclude shuttle bookings
-        String apiUrl = "https://api.rezdy.com/v1/bookings/?apiKey=e53f787958f0497a9e62f3cb6109cef8&minTourStartTime=" + date + "T00:00:00Z&maxTourStartTime=" + date + "T24:00:00Z";
+        String apiUrl = "https://api.rezdy.com/v1/bookings/?apiKey=&minTourStartTime=" + date + "T00:00:00Z&maxTourStartTime=" + date + "T24:00:00Z";
         String result = null;
         int resCode;
         InputStream in;
