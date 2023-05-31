@@ -7,7 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -48,7 +48,7 @@ public class BatchCheckIn extends AppCompatActivity {
             Toast.makeText(this, "This device does not support nfc", Toast.LENGTH_LONG).show();
             finish();
         }
-        if(!mNfcAdapter.isEnabled()){
+        else if(!mNfcAdapter.isEnabled()){
             Toast.makeText(this, "NFC is turned off", Toast.LENGTH_LONG).show();
             finish();
         }

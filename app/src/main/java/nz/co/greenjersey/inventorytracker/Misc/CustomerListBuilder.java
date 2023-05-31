@@ -117,8 +117,8 @@ public class CustomerListBuilder extends AsyncTask<String, Void, String>{
                             }
                         });
                         layout.addView(button);
-                        spinner = (ProgressBar) ((Activity) context).findViewById(R.id.progressBar2);
-                        spinner.setVisibility(View.GONE);
+                        //spinner = (ProgressBar) ((Activity) context).findViewById(R.id.progressBar2);
+                        //spinner.setVisibility(View.GONE);
                     }
                     else if (callingClass.equals("removeBike")) {
                         Log.d("test", "test");
@@ -145,8 +145,8 @@ public class CustomerListBuilder extends AsyncTask<String, Void, String>{
 
                                     });
                                     layout.addView(button);
-                                    spinner = (ProgressBar) ((Activity) context).findViewById(R.id.progressBar2);
-                                    spinner.setVisibility(View.GONE);
+                                    //spinner = (ProgressBar) ((Activity) context).findViewById(R.id.progressBar2);
+                                    //spinner.setVisibility(View.GONE);
                                 }
                             }
                             @Override

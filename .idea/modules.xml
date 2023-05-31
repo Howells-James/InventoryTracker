@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/InventoryTracker.iml" filepath="$PROJECT_DIR$/InventoryTracker.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/InventoryTracker.iml" filepath="$PROJECT_DIR$/.idea/modules/InventoryTracker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/InventoryTracker.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/InventoryTracker.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/InventoryTracker.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/InventoryTracker.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/InventoryTracker.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/InventoryTracker.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/InventoryTracker.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/InventoryTracker.app.unitTest.iml" />
     </modules>
   </component>
 </project>
